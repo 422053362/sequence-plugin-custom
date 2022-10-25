@@ -1,0 +1,8 @@
+<idea-plugin>
+    <extensions defaultExtensionNs="SequenceDiagram">
+        <sequenceNavigable language="kotlin" implementationClass="org.intellij.sequencer.ext.kotlin.KtSequenceNavigable"/>
+        <generator language="kotlin" implementationClass="org.intellij.sequencer.ext.kotlin.KtGeneratorFactory"/>
+        <actionFinder language="kotlin" implementationClass="org.intellij.sequencer.ext.kotlin.KtActionFinder"/>
+        <typeFinder language="kotlin" implementationClass="org.intellij.sequencer.ext.kotlin.KtElementTypeFinder"/>
+    </extensions>
+</idea-plugin>

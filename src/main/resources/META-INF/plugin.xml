@@ -1,0 +1,108 @@
+<idea-plugin>
+    <id>SequenceDiagram</id>
+    <name>SequenceDiagram</name>
+    <description><![CDATA[
+<h3>SequenceDiagram for IntelliJ IDEA</h3>
+<a href="http://vanco.github.io/SequencePlugin">http://vanco.github.io/SequencePlugin.</a>
+
+<p>with this plugin, you can<br>
++ generate Simple Sequence Diagram.<br>
++ Navigate the code by click the diagram shape.<br>
++ Delete Class from diagram.<br>
++ Export the diagram as image.<br>
++ Export the diagram as PlantUML file.<br>
++ Exclude classes from diagram by Settings > Tools > Sequence Diagram<br>
++ Smart Interface(experimental)<br>
++ Lambda Expression(experimental)</p>
+
+<p>SequencePluginReload rename to SequenceDiagram.
+Simple Sequence Diagram Generator. fixed version of SequencePlugin , work from 13.x.
+The original version SequencePlugin come from ksibilev@yahoo.com.</p>
+
+]]></description>
+    <version>1.2.4</version>
+    <vendor email="fanhuagang@gmail.com">VanStudio</vendor>
+    <idea-version since-build="201.6668.113"/>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <depends>com.intellij.modules.java</depends>
+
+    <depends optional="true" config-file="SequenceDiagram-kotlin.xml">org.jetbrains.kotlin</depends>
+
+    <change-notes/>
+
+    <actions>
+        <group id="Halo Tools" text="Halo Tool"
+               popup="true" icon="SequencePluginIcons.SEQUENCE_ICON">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="ReplaceInPath"/>
+        </group>
+        <!-- 创建Halo Basic -->
+        <action class="org.intellij.sequencer.NewBasicExeAction"
+                id="halo.basic.class" description="Halo Basic"
+                icon="SequencePluginIcons.SEQUENCE_ICON"
+                text="Basic Class">
+            <add-to-group group-id="Halo Tools"/>
+        </action>
+    </actions>
+
+    <actions>
+        <action id="SequencePlugin.ShowSequenceDiagram" class="org.intellij.sequencer.ShowSequenceAction"
+                icon="SequencePluginIcons.SEQUENCE_ICON"
+                text="Sequence Diagram"
+                description="Generate sequence diagram of the current method">
+            <add-to-group group-id="EditorPopupMenu" anchor="after" relative-to-action="ShowIntentionsGroup"/>
+            <add-to-group group-id="StructureViewPopupMenu" anchor="after" relative-to-action="RefactoringMenu"/>
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <keyboard-shortcut first-keystroke="alt S" keymap="$default"/>
+        </action>
+        <group id="SequencePlugin.SequenceDiagramGroup"
+               class="org.intellij.sequencer.ShowSequenceActionGroup"
+               icon="SequencePluginIcons.SEQUENCE_ICON" text="Sequence Diagram..." popup="true">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="before" relative-to-action="AssociateWithFileType"/>
+            <add-to-group group-id="NavBarToolBarOthers" anchor="first"/>
+        </group>
+    </actions>
+
+    <extensionPoints>
+        <extensionPoint name="sequenceNavigable" beanClass="com.intellij.lang.LanguageExtensionPoint"
+                        area="IDEA_PROJECT" dynamic="true">
+            <with attribute="implementationClass" implements="org.intellij.sequencer.openapi.SequenceNavigable"/>
+        </extensionPoint>
+        <extensionPoint name="generator" beanClass="com.intellij.lang.LanguageExtensionPoint" dynamic="true">
+            <with attribute="implementationClass" implements="org.intellij.sequencer.openapi.GeneratorFactory"/>
+        </extensionPoint>
+        <extensionPoint name="actionFinder" beanClass="com.intellij.lang.LanguageExtensionPoint" dynamic="true">
+            <with attribute="implementationClass" implements="org.intellij.sequencer.openapi.ActionFinder"/>
+        </extensionPoint>
+        <extensionPoint name="typeFinder" beanClass="com.intellij.lang.LanguageExtensionPoint" dynamic="true">
+            <with attribute="implementationClass" implements="org.intellij.sequencer.openapi.ElementTypeFinder"/>
+        </extensionPoint>
+    </extensionPoints>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <applicationConfigurable parentId="tools"
+                                 id="Settings.Sequence.Configuration"
+                                 instance="org.intellij.sequencer.config.SequenceSettingsConfigurable"
+                                 displayName="Sequence Diagram"/>
+        <applicationService serviceImplementation="org.intellij.sequencer.config.SequenceSettingsState"/>
+        <applicationService serviceImplementation="org.intellij.sequencer.config.SequenceParamsState"/>
+        <toolWindow id="Sequence Diagram" icon="SequencePluginIcons.SEQUENCE_ICON_13" anchor="bottom"
+                    factoryClass="org.intellij.sequencer.SequenceToolWindowsFactory" canCloseContents="true"/>
+        <!-- Since idea 2020.3.x -->
+        <notificationGroup displayType="BALLOON" id="Sequence Diagram"/>
+
+        <projectService serviceInterface="org.intellij.sequencer.SequenceService"
+                        serviceImplementation="org.intellij.sequencer.impl.SequenceServiceImpl"/>
+
+
+    </extensions>
+    <extensions defaultExtensionNs="SequenceDiagram">
+        <sequenceNavigable language="JAVA"
+                           implementationClass="org.intellij.sequencer.generator.JavaSequenceNavigable"/>
+        <generator language="JAVA" implementationClass="org.intellij.sequencer.generator.JavaGeneratorFactory"/>
+        <actionFinder language="JAVA" implementationClass="org.intellij.sequencer.generator.JavaActionFinder"/>
+        <typeFinder language="JAVA" implementationClass="org.intellij.sequencer.generator.JavaElementTypeFinder"/>
+    </extensions>
+</idea-plugin>
