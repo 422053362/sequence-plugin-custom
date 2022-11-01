@@ -107,6 +107,7 @@ public class SequenceGenerator extends JavaRecursiveElementVisitor implements IG
 
     /**
      * Generate Java method
+     *
      * @param psiMethod Java method
      * @return CallStack
      */
@@ -131,14 +132,14 @@ public class SequenceGenerator extends JavaRecursiveElementVisitor implements IG
                     if (psiElement instanceof PsiMethod) {
                         if (alreadyInStack((PsiMethod) psiElement)) continue;
 
-                        if (/*!params.isSmartInterface() && */params.getImplementationWhiteList().allow(psiElement))
+                        if (params.isAllowChainInvocation() || params.getImplementationWhiteList().allow(psiElement))
                             methodAccept(psiElement);
                     }
                 }
             }
         } else {
             // resolve variable initializer
-            if (/*params.isSmartInterface() && */!MyPsiUtil.isExternal(containingClass) && !imfCache.contains(containingClass.getQualifiedName())) {
+            if (!MyPsiUtil.isExternal(containingClass) && !imfCache.contains(containingClass.getQualifiedName())) {
                 containingClass.accept(new ImplementationFinder());
                 imfCache.add(containingClass.getQualifiedName());
             }
@@ -333,7 +334,7 @@ public class SequenceGenerator extends JavaRecursiveElementVisitor implements IG
      *      }
      * }
      * </pre>
-     *
+     * <p>
      * When user use Apple assignment, the <code>Apple</code> implement should be preferred.
      * <pre>
      *     Fruit fruit = new Apple()

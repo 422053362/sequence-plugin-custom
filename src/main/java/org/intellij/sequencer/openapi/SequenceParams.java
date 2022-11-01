@@ -15,6 +15,9 @@ public class SequenceParams {
 
     private int _maxDepth = 3;
     private boolean _allowRecursion = false;
+
+    //是否允许链式调用，spring中的一个接口多个实现，顺序调用的情况
+    private boolean _allowChainInvocation = true;
     @Deprecated(since = "2.2.0", forRemoval = true)
     private boolean smartInterface = false;
     private final CompositeElementFilter _methodFilter = new CompositeElementFilter();
@@ -39,6 +42,10 @@ public class SequenceParams {
         this._allowRecursion = allowRecursion;
     }
 
+    public void setAllowChainInvocation(boolean allowChainInvocation) {
+        this._allowChainInvocation = allowChainInvocation;
+    }
+
     @Deprecated(since = "2.2.0", forRemoval = true)
     public boolean isSmartInterface() {
         return smartInterface;
@@ -55,6 +62,10 @@ public class SequenceParams {
 
     public ImplementationWhiteList getImplementationWhiteList() {
         return _implFilter;
+    }
+
+    public boolean isAllowChainInvocation() {
+        return _allowChainInvocation;
     }
 }
 

@@ -16,7 +16,7 @@ public class OptionsUI {
         private final JCheckBox jCheckBoxNGS;
         private final JCheckBox jCheckBoxNPM;
         private final JCheckBox jCheckBoxNC;
-//        private final JCheckBox jCheckBoxSI;
+        private final JCheckBox jCheckBoxChainInvocation;
 
         public DialogPanel() {
             super(new GridBagLayout());
@@ -75,6 +75,14 @@ public class OptionsUI {
             gc.insets = JBUI.emptyInsets();
             jCheckBoxNC = new JCheckBox("Skip constructors", state.noConstructors);
             add(jCheckBoxNC, gc);
+
+            gc.gridx = 0;
+            gc.gridy = 3;
+            gc.anchor = GridBagConstraints.WEST;
+            gc.gridwidth = 2;
+            gc.insets = JBUI.emptyInsets();
+            jCheckBoxChainInvocation = new JCheckBox("allow chain invocation", state.allowChainInvocation);
+            add(jCheckBoxChainInvocation, gc);
         }
     }
 
@@ -114,6 +122,10 @@ public class OptionsUI {
 
         public boolean isNoConstructors() {
             return dialogPanel.jCheckBoxNC.isSelected();
+        }
+
+        public boolean isAllowChainInvocation() {
+            return dialogPanel.jCheckBoxChainInvocation.isSelected();
         }
 
 //        public boolean isSmartInterface() {

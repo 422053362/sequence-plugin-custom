@@ -20,6 +20,7 @@ public class SequenceParamsState implements PersistentStateComponent<SequencePar
     public boolean noGetterSetters = true;
     public boolean noPrivateMethods = false;
     public boolean noConstructors = false;
+    public boolean allowChainInvocation = true;
     @Deprecated(since = "2.2.0", forRemoval = true)
     public boolean smartInterface = false;
 

@@ -56,7 +56,8 @@ public class SequencePanel extends JPanel implements ConfigListener {
     private String _titleName;
     private final JScrollPane _jScrollPane;
     private final HashMap<String, Integer> navIndexMap = new HashMap<>();
-    private GenerateFinishedListener finished = name -> {};
+    private GenerateFinishedListener finished = name -> {
+    };
 
     public SequencePanel(Project project, PsiElement psiMethod) {
         super(new BorderLayout());
@@ -294,7 +295,8 @@ public class SequencePanel extends JPanel implements ConfigListener {
     @Override
     public void configChanged() {
         // do nothing
-        //_sequenceParams = loadSequenceParams();
+        SequenceParamsState sequenceParamsState = SequenceParamsState.getInstance();
+        _sequenceParams.setAllowChainInvocation(sequenceParamsState.getState().allowChainInvocation);
     }
 
     private class ReGenerateAction extends AnAction {
@@ -553,7 +555,7 @@ public class SequencePanel extends JPanel implements ConfigListener {
                 actionGroup.add(new RemoveClassAction(displayObject.getObjectInfo()));
                 if ((displayObject.getObjectInfo().hasAttribute(Info.INTERFACE_ATTRIBUTE) || displayObject.getObjectInfo().hasAttribute(Info.ABSTRACT_ATTRIBUTE))
                         && !displayObject.getObjectInfo().hasAttribute(Info.EXTERNAL_ATTRIBUTE)
-                        /*&& !_sequenceParams.isSmartInterface()*/) {
+                    /*&& !_sequenceParams.isSmartInterface()*/) {
                     String className = displayObject.getObjectInfo().getFullName();
                     List<String> impls = navigable.findImplementations(className);
                     actionGroup.addSeparator();
@@ -564,7 +566,7 @@ public class SequencePanel extends JPanel implements ConfigListener {
                 actionGroup.add(new RemoveMethodAction(displayMethod.getMethodInfo()));
                 if ((displayMethod.getObjectInfo().hasAttribute(Info.INTERFACE_ATTRIBUTE) || displayMethod.getObjectInfo().hasAttribute(Info.ABSTRACT_ATTRIBUTE))
                         && !displayMethod.getObjectInfo().hasAttribute(Info.EXTERNAL_ATTRIBUTE)
-                        /*&& !_sequenceParams.isSmartInterface()*/) {
+                    /*&& !_sequenceParams.isSmartInterface()*/) {
 
                     String className = displayMethod.getObjectInfo().getFullName();
                     String methodName = displayMethod.getMethodInfo().getRealName();

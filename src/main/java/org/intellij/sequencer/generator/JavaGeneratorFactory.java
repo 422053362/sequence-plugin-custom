@@ -40,6 +40,7 @@ public class JavaGeneratorFactory extends GeneratorFactory {
         params.getMethodFilter().addFilter(new NoGetterSetterFilter(state.noGetterSetters));
         params.getMethodFilter().addFilter(new NoPrivateMethodsFilter(state.noPrivateMethods));
         params.getMethodFilter().addFilter(new NoConstructorsFilter(state.noConstructors));
+        params.setAllowChainInvocation(state.allowChainInvocation);
 
         List<ExcludeEntry> excludeList = SequenceSettingsState.getInstance().getExcludeList();
         for (ExcludeEntry excludeEntry : excludeList) {
