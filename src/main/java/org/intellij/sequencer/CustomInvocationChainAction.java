@@ -7,7 +7,6 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethod;
-import org.apache.commons.collections.CollectionUtils;
 import org.intellij.sequencer.config.SequenceParamsState;
 import org.intellij.sequencer.generator.filters.NoConstructorsFilter;
 import org.intellij.sequencer.generator.filters.NoGetterSetterFilter;
@@ -17,8 +16,6 @@ import org.intellij.sequencer.openapi.IGenerator;
 import org.intellij.sequencer.openapi.SequenceParams;
 import org.intellij.sequencer.openapi.filters.ProjectOnlyFilter;
 import org.intellij.sequencer.openapi.model.CallStack;
-import org.intellij.sequencer.openapi.model.ClassDescription;
-import org.intellij.sequencer.openapi.model.MethodDescription;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.FileWriter;
@@ -33,7 +30,7 @@ import java.util.List;
  *
  * @author xujin
  */
-public class InvocationChainAction extends AnAction {
+public class CustomInvocationChainAction extends AnAction {
 
     @Override
     public void actionPerformed(AnActionEvent event) {
@@ -92,7 +89,7 @@ public class InvocationChainAction extends AnAction {
             for (CallStack callStack : callStackList) {
                 System.out.println(ii++ + "#" + callStackList.size());
                 String line = callStack.toString();
-                if (line.contains("com.qiekj.ads.dao.mapper") || line.contains("com.qiekj.bi.dao.mapper") || line.contains("com.qiekj.hologres.dao.mapper")) {
+                if (line.contains("com.qiekj.ads.dao.mapper") || line.contains("com.qiekj.bi.dao.mapper") || line.contains("com.qiekj.hologres.dao.mapper") || line.contains("com.qiekj.sell.dao.mapper")) {
                     file.append(callStack.toString() + "\n\n");
                 }
             }

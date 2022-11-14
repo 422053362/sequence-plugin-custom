@@ -38,17 +38,17 @@ The original version SequencePlugin come from ksibilev@yahoo.com.</p>
             <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="ReplaceInPath"/>
         </group>
         <!-- 创建Halo Basic -->
-        <action class="org.intellij.sequencer.InvocationChainAction"
+        <action class="org.intellij.sequencer.CustomInvocationChainAction"
                 id="halo.invocation.chain.class" description="调用链条筛选"
                 icon="SequencePluginIcons.SEQUENCE_ICON"
                 text="调用链条筛选">
             <add-to-group group-id="Halo Tools"/>
         </action>
         <!-- 创建Halo Basic -->
-        <action class="org.intellij.sequencer.MoreSubClassAction"
-                id="halo.children.gt1.class" description="多个实现类的接口筛选"
+        <action class="org.intellij.sequencer.CustomUselessClassAction"
+                id="halo.children.gt2.class" description="筛选出没有被调用的类"
                 icon="SequencePluginIcons.SEQUENCE_ICON"
-                text="多个实现类的接口筛选">
+                text="筛选出没有被调用的类">
             <add-to-group group-id="Halo Tools"/>
         </action>
     </actions>
